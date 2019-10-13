@@ -19,7 +19,7 @@ handler = WebhookHandler('eaf17146cc222e9472926d5f2e159e8d')
 line_bot_api.push_message('Uf620f6937d1ca2dfa32bf4ebc54b90c3',TextSendMessage(text='你可以開始了'))
 
 # 監聽所有來自 /callback 的 Post Request
-@app.route('/api/callback', methods=['POST'])
+@app.route("callback", methods=['POST'])
 def callback():
     # get X-Line-Signature header value
     signature = request.headers['X-Line-Signature']
@@ -32,7 +32,7 @@ def callback():
     try:
         handler.handle(body, signature)
     except InvalidSignatureError:
-        abort(200)
+        abort(400)
 
     return 'OK'
 
